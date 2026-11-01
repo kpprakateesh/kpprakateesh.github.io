@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Concept study: three arched niches in sage, cream and brass">
+  <defs>
+    <linearGradient id="p6bg" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#f4eee2"/>
+      <stop offset="1" stop-color="#e5d7bf"/>
+    </linearGradient>
+    <linearGradient id="p6sage" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c6e8d0"/>
+      <stop offset="1" stop-color="#8fcfa6"/>
+    </linearGradient>
+    <linearGradient id="p6brass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e0bb84"/>
+      <stop offset="1" stop-color="#b3854a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#p6bg)"/>
+
+  <!-- plinth -->
+  <path d="M0 820h800v54H0z" fill="#0f4d29"/>
+  <path d="M0 874h800v126H0z" fill="#dcc9ab"/>
+
+  <!-- niche 1 -->
+  <g>
+    <path d="M96 820V470a84 84 0 0 1 168 0v350z" fill="url(#p6sage)"/>
+    <path d="M96 820V470a84 84 0 0 1 168 0v350" fill="none" stroke="#0f4d29" stroke-width="5"/>
+    <!-- vase -->
+    <path d="M150 820v-54c0-26 12-42 30-42s30 16 30 42v54z" fill="#fbf9f3" stroke="#0f4d29" stroke-width="3"/>
+    <path d="M158 736h44" stroke="#0f4d29" stroke-opacity="0.25" stroke-width="2"/>
+  </g>
+
+  <!-- niche 2 -->
+  <g>
+    <path d="M304 820V470a84 84 0 0 1 168 0v350z" fill="#fbf9f3"/>
+    <path d="M304 820V470a84 84 0 0 1 168 0v350" fill="none" stroke="#0f4d29" stroke-width="5"/>
+    <!-- sculpture: stacked forms -->
+    <circle cx="388" cy="742" r="26" fill="#c79a5b"/>
+    <path d="M362 800h52l-8-34h-36z" fill="#0f4d29"/>
+    <path d="M388 716v-26" stroke="#0f4d29" stroke-width="4"/>
+  </g>
+
+  <!-- niche 3 -->
+  <g>
+    <path d="M512 820V470a84 84 0 0 1 168 0v350z" fill="url(#p6brass)"/>
+    <path d="M512 820V470a84 84 0 0 1 168 0v350" fill="none" stroke="#0f4d29" stroke-width="5"/>
+    <!-- pendant -->
+    <path d="M596 470v84" stroke="#0f4d29" stroke-width="3"/>
+    <path d="M572 596c0-24 11-40 24-40s24 16 24 40z" fill="#fbf9f3" stroke="#0f4d29" stroke-width="2.5"/>
+    <circle cx="596" cy="606" r="14" fill="#f6dcb2"/>
+  </g>
+
+  <!-- wall rule details -->
+  <g stroke="#0f4d29" stroke-opacity="0.18" stroke-width="2">
+    <path d="M0 250h800"/>
+    <path d="M0 286h800"/>
+  </g>
+
+  <!-- side light -->
+  <g transform="translate(710 250)">
+    <circle r="40" fill="#f6dcb2" opacity="0.35"/>
+    <circle r="18" fill="#c79a5b"/>
+  </g>
+</svg>

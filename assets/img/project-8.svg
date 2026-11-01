@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Concept study: workplace reception with fluted timber desk, arched niche, lounge seating and brass pendants">
+  <defs>
+    <linearGradient id="p8wall" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#f8f3e9"/>
+      <stop offset="1" stop-color="#e8ddc9"/>
+    </linearGradient>
+    <linearGradient id="p8floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e7d8bf"/>
+      <stop offset="1" stop-color="#d3bf9e"/>
+    </linearGradient>
+    <linearGradient id="p8arch" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#dcebd5"/>
+      <stop offset="1" stop-color="#b9d9c2"/>
+    </linearGradient>
+    <linearGradient id="p8desk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b98d52"/>
+      <stop offset="1" stop-color="#8a6231"/>
+    </linearGradient>
+    <linearGradient id="p8stone" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#f4ecdd"/>
+      <stop offset="1" stop-color="#d8c8ad"/>
+    </linearGradient>
+    <radialGradient id="p8glow" cx="0.5" cy="0.1" r="0.8">
+      <stop offset="0" stop-color="#f6dfb8" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#f6dfb8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="p8flute" width="16" height="12" patternUnits="userSpaceOnUse">
+      <rect width="16" height="12" fill="#a97b43"/>
+      <rect width="8" height="12" fill="#b98d52"/>
+      <rect x="8" width="2" height="12" fill="#8a6231" opacity="0.55"/>
+    </pattern>
+    <clipPath id="p8archclip">
+      <path d="M236 552V352a164 164 0 0 1 328 0v200z"/>
+    </clipPath>
+  </defs>
+
+  <!-- room -->
+  <rect width="800" height="1000" fill="url(#p8wall)"/>
+  <rect y="742" width="800" height="258" fill="url(#p8floor)"/>
+  <g stroke="#bba57f" stroke-width="2" opacity="0.5">
+    <path d="M0 806h800M0 884h800M0 962h800"/>
+    <path d="M110 742 30 1000M290 742l-36 258M510 742l30 258M700 742l64 258"/>
+  </g>
+  <path d="M0 742h800" stroke="#c9b490" stroke-width="3"/>
+
+  <!-- ceiling + light line -->
+  <rect width="800" height="74" fill="#fbf9f3"/>
+  <path d="M0 74h800" stroke="#d9cbb4" stroke-width="3"/>
+  <rect x="220" y="40" width="430" height="5" rx="2.5" fill="#c79a5b" opacity="0.85"/>
+
+  <!-- glass partition left, hint of studio beyond -->
+  <g>
+    <rect x="34" y="150" width="150" height="470" rx="4" fill="#dcebd5" opacity="0.75"/>
+    <g fill="#17703f" opacity="0.28">
+      <rect x="58" y="360" width="102" height="260"/>
+      <rect x="72" y="410" width="26" height="210"/>
+      <rect x="116" y="386" width="30" height="234"/>
+    </g>
+    <rect x="34" y="150" width="150" height="470" rx="4" fill="none" stroke="#0d1a12" stroke-opacity="0.3" stroke-width="6"/>
+    <path d="M109 150v470M34 300h150M34 470h150" stroke="#0d1a12" stroke-opacity="0.18" stroke-width="3"/>
+    <g fill="#0d1a12" opacity="0.75">
+      <rect x="30" y="616" width="158" height="8" rx="3"/>
+    </g>
+  </g>
+
+  <!-- arched niche -->
+  <g>
+    <path d="M236 560V352a164 164 0 0 1 328 0v208z" fill="#0f4d29" opacity="0.08"/>
+    <path d="M236 552V352a164 164 0 0 1 328 0v200z" fill="url(#p8arch)"/>
+    <g clip-path="url(#p8archclip)">
+      <path d="M236 552V352a164 164 0 0 1 328 0v200z" fill="url(#p8arch)"/>
+      <g fill="#0f4d29" opacity="0.16">
+        <path d="M236 552V430c58 26 104 10 150-18 52-32 112-26 178 2v138z"/>
+      </g>
+      <g fill="#f8f3e9" opacity="0.45">
+        <circle cx="300" cy="360" r="70"/>
+      </g>
+    </g>
+    <path d="M236 552V352a164 164 0 0 1 328 0v200" fill="none" stroke="#0d1a12" stroke-opacity="0.22" stroke-width="4"/>
+    <path d="M236 552V352a164 164 0 0 1 328 0v200" fill="none" stroke="#c79a5b" stroke-opacity="0.5" stroke-width="1.5"/>
+
+    <!-- console inside arch -->
+    <rect x="310" y="500" width="180" height="10" rx="4" fill="#0d1a12" opacity="0.8"/>
+    <path d="M326 510v42M474 510v42" stroke="#0d1a12" stroke-width="4"/>
+    <!-- vase + branches -->
+    <path d="M378 464h44l-8 38h-28z" fill="#0d1a12"/>
+    <g stroke="#0f4d29" stroke-width="4" fill="none" stroke-linecap="round">
+      <path d="M400 464V404M400 430l-22-20M400 420l24-18"/>
+    </g>
+    <g fill="#17703f">
+      <ellipse cx="376" cy="408" rx="18" ry="7" transform="rotate(-26 376 408)"/>
+      <ellipse cx="426" cy="400" rx="18" ry="7" transform="rotate(22 426 400)"/>
+      <ellipse cx="400" cy="392" rx="9" ry="17"/>
+    </g>
+    <!-- framed art / book stack -->
+    <g>
+      <rect x="432" y="462" width="42" height="38" rx="2" fill="#f8f3e9" stroke="#0d1a12" stroke-opacity="0.35" stroke-width="2"/>
+      <path d="M438 492l10-14 8 9 7-6 7 11z" fill="#17703f" opacity="0.45"/>
+      <circle cx="460" cy="472" r="4" fill="#c79a5b"/>
+    </g>
+  </g>
+
+  <!-- wall wordmark + pendant globes -->
+  <g>
+    <text x="584" y="268" font-family="Georgia, 'Times New Roman', serif" font-size="26" letter-spacing="9" fill="#0f4d29" opacity="0.72">AGAM</text>
+    <path d="M584 284h92" stroke="#c79a5b" stroke-width="2"/>
+  </g>
+  <g>
+    <path d="M590 74v54M680 74v34" stroke="#0d1a12" stroke-width="4"/>
+    <circle cx="590" cy="156" r="28" fill="#f6dfb8"/>
+    <circle cx="590" cy="156" r="28" fill="none" stroke="#c79a5b" stroke-width="3"/>
+    <circle cx="680" cy="130" r="20" fill="#f6dfb8"/>
+    <circle cx="680" cy="130" r="20" fill="none" stroke="#c79a5b" stroke-width="3"/>
+    <ellipse cx="590" cy="196" rx="44" ry="14" fill="url(#p8glow)"/>
+    <ellipse cx="680" cy="164" rx="32" ry="11" fill="url(#p8glow)"/>
+  </g>
+
+  <!-- reception desk -->
+  <g>
+    <!-- back counter -->
+    <rect x="250" y="588" width="330" height="16" rx="5" fill="url(#p8stone)"/>
+    <rect x="250" y="588" width="330" height="16" rx="5" fill="none" stroke="#0d1a12" stroke-opacity="0.2" stroke-width="2"/>
+    <rect x="264" y="604" width="302" height="118" fill="url(#p8flute)"/>
+    <rect x="264" y="604" width="302" height="118" fill="none" stroke="#0d1a12" stroke-opacity="0.18" stroke-width="2"/>
+    <rect x="250" y="708" width="330" height="14" rx="4" fill="#0d1a12" opacity="0.12"/>
+    <!-- front counter, offset for depth -->
+    <rect x="196" y="646" width="304" height="18" rx="5" fill="url(#p8stone)"/>
+    <rect x="196" y="646" width="304" height="18" rx="5" fill="none" stroke="#0d1a12" stroke-opacity="0.22" stroke-width="2"/>
+    <rect x="208" y="664" width="280" height="144" fill="url(#p8flute)"/>
+    <rect x="208" y="664" width="280" height="144" fill="none" stroke="#0d1a12" stroke-opacity="0.2" stroke-width="2"/>
+    <rect x="196" y="802" width="304" height="12" rx="4" fill="#0d1a12" opacity="0.14"/>
+    <!-- brass reveal -->
+    <rect x="208" y="692" width="280" height="4" fill="#c79a5b" opacity="0.8"/>
+    <!-- monitor on desk -->
+    <g>
+      <rect x="330" y="586" width="76" height="48" rx="4" fill="#0d1a12"/>
+      <rect x="335" y="591" width="66" height="34" rx="2" fill="#a6e0bb" opacity="0.85"/>
+      <rect x="362" y="634" width="12" height="12" fill="#0d1a12"/>
+      <rect x="348" y="644" width="40" height="4" rx="2" fill="#0d1a12"/>
+    </g>
+    <!-- desk accessories -->
+    <g>
+      <rect x="438" y="628" width="34" height="18" rx="3" fill="#0f4d29"/>
+      <rect x="444" y="620" width="22" height="10" rx="2" fill="#a6e0bb" opacity="0.8"/>
+      <circle cx="252" cy="640" r="8" fill="#17703f"/>
+      <path d="M252 640v-16" stroke="#0f4d29" stroke-width="2"/>
+    </g>
+    <!-- stool -->
+    <g>
+      <ellipse cx="462" cy="842" rx="50" ry="12" fill="#17703f"/>
+      <rect x="414" y="820" width="96" height="24" rx="12" fill="#17703f"/>
+      <path d="M462 852v46M438 918l24-20 24 20" stroke="#0d1a12" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- lounge chair right -->
+  <g transform="translate(592 636)">
+    <path d="M0 82c0-26 14-38 38-38h104c24 0 38 12 38 38v56H0z" fill="#0f4d29"/>
+    <path d="M14 82c0-16 8-24 26-24h100c18 0 26 8 26 24v40H14z" fill="#17703f" opacity="0.55"/>
+    <path d="M28 56V20c0-10 8-18 18-18h86c10 0 18 8 18 18v40" fill="none" stroke="#0f4d29" stroke-width="12" stroke-linecap="round"/>
+    <g stroke="#0d1a12" stroke-width="5" stroke-linecap="round">
+      <path d="M24 138v26M156 138v26"/>
+      <path d="M4 170l20-8M176 170l-20-8"/>
+    </g>
+    <ellipse cx="90" cy="142" rx="86" ry="10" fill="#0d1a12" opacity="0.08"/>
+  </g>
+
+  <!-- side table -->
+  <g>
+    <ellipse cx="690" cy="806" rx="46" ry="12" fill="#c79a5b"/>
+    <path d="M690 806v52" stroke="#8a6231" stroke-width="6"/>
+    <path d="M668 866h44" stroke="#8a6231" stroke-width="6" stroke-linecap="round"/>
+    <path d="M676 794h28l-5 12h-18z" fill="#0d1a12"/>
+    <g stroke="#0f4d29" stroke-width="2.5" fill="none">
+      <path d="M690 794v-22M690 782l-10-8M690 778l10-8"/>
+    </g>
+  </g>
+
+  <!-- rug -->
+  <rect x="196" y="836" width="420" height="132" rx="10" fill="#c79a5b" opacity="0.16"/>
+  <rect x="212" y="850" width="388" height="104" rx="6" fill="none" stroke="#86632b" stroke-opacity="0.25" stroke-width="2"/>
+  <g stroke="#86632b" stroke-opacity="0.18" stroke-width="2">
+    <path d="M212 884h388M212 918h388"/>
+  </g>
+
+  <!-- foreground planter left -->
+  <g transform="translate(52 700)">
+    <rect x="0" y="132" width="76" height="104" rx="8" fill="#0f4d29"/>
+    <rect x="8" y="142" width="60" height="84" rx="5" fill="#17703f" opacity="0.5"/>
+    <g stroke="#0f4d29" stroke-width="5" fill="none" stroke-linecap="round">
+      <path d="M38 132V62M38 100 8 72M38 86l30-26M38 118 12 108M38 110l34-12"/>
+    </g>
+    <g fill="#17703f">
+      <ellipse cx="6" cy="66" rx="26" ry="11" transform="rotate(-30 6 66)"/>
+      <ellipse cx="70" cy="54" rx="26" ry="11" transform="rotate(28 70 54)"/>
+      <ellipse cx="38" cy="34" rx="18" ry="28"/>
+      <ellipse cx="10" cy="104" rx="22" ry="9" transform="rotate(-12 10 104)"/>
+      <ellipse cx="68" cy="94" rx="22" ry="9" transform="rotate(14 68 94)"/>
+    </g>
+    <g fill="#a6e0bb" opacity="0.65">
+      <ellipse cx="38" cy="22" rx="8" ry="16"/>
+      <ellipse cx="14" cy="60" rx="8" ry="4" transform="rotate(-30 14 60)"/>
+    </g>
+  </g>
+
+  <!-- small directional sign -->
+  <g>
+    <path d="M742 300v250" stroke="#0d1a12" stroke-width="3" opacity="0.6"/>
+    <path d="M716 330h44l-8 10 8 10h-44z" fill="#0f4d29"/>
+    <text x="724" y="346" font-family="Inter, Arial, sans-serif" font-size="9" letter-spacing="2" fill="#f4f0e7">WORK</text>
+  </g>
+</svg>

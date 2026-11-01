@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /thanks.html
+Disallow: /admin/
+
+Sitemap: https://agaminterio.com/sitemap.xml

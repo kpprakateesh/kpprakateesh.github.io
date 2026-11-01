@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agam Studio — Office Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b2a17">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<script src="../assets/js/firebase-config.js"></script>
+</head>
+<body>
+
+<noscript>
+  <div class="gate gate--plain">
+    <div class="gate__card">
+      <h1>JavaScript is required</h1>
+      <p>The office admin needs JavaScript for secure sign-in and live data. Please enable it and reload.</p>
+    </div>
+  </div>
+</noscript>
+
+<!-- ======================================================================
+     BOOT
+     ====================================================================== -->
+<div class="boot" id="boot">
+  <div class="boot__mark">A</div>
+  <p>Opening Agam Studio…</p>
+</div>
+
+<!-- ======================================================================
+     GATE — signed out
+     ====================================================================== -->
+<section class="gate" id="gate-signin" hidden>
+  <div class="gate__card">
+    <div class="gate__brand">
+      <img src="../assets/img/logo.jpg" alt="" width="44" height="44">
+      <div><strong>Agam</strong><span>Interior &amp; Build Consultants</span></div>
+    </div>
+    <p class="gate__eyebrow">Office workspace</p>
+    <h1>Run the studio from one place.</h1>
+    <p class="gate__lead">
+      Sign in with your office Google account to update the website, move projects
+      through the cycle and share drawings with the team.
+    </p>
+
+    <button class="btn btn--google" id="google-signin" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.2-2.2H12v4.3h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.1 3.6 2.8.2.1c2.3-2.1 3.7-5.2 3.7-8.9z"/>
+        <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.7-2.9c-1 .7-2.3 1.2-4.2 1.2-3.2 0-5.9-2.1-6.9-5l-.1.1-3.7 2.9-.1.1C3.2 21.3 7.3 24 12 24z"/>
+        <path fill="#FBBC05" d="M5.1 14.4A7.4 7.4 0 0 1 4.7 12c0-.8.2-1.6.4-2.4V9.5L1.3 6.6l-.1.1A12 12 0 0 0 0 12c0 1.9.5 3.7 1.3 5.3l3.8-2.9z"/>
+        <path fill="#EA4335" d="M12 4.7c2.3 0 3.9 1 4.8 1.8l3.5-3.4C18 1.2 15.2 0 12 0 7.3 0 3.2 2.7 1.2 6.7l3.9 3c1-2.9 3.7-5 6.9-5z"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <p class="gate__fine">
+      New accounts start as <strong>pending</strong>. An admin approves each office
+      account before it can see project data.
+    </p>
+    <div class="gate__demo" id="demo-accounts" hidden>
+      <p class="gate__demo-title">Demo mode — pick an account</p>
+      <div class="gate__demo-grid">
+        <button type="button" data-demo-account="demo-admin"><b>Admin</b><span>Full control</span></button>
+        <button type="button" data-demo-account="demo-staff"><b>Office staff</b><span>Projects &amp; files</span></button>
+        <button type="button" data-demo-account="demo-viewer"><b>Viewer</b><span>Read only</span></button>
+        <button type="button" data-demo-account="demo-pending"><b>Pending</b><span>Awaiting approval</span></button>
+      </div>
+      <p class="gate__fine">Demo data lives only in this browser. Nothing is uploaded.</p>
+    </div>
+    <p class="gate__error" id="signin-error" role="alert" hidden></p>
+  </div>
+  <p class="gate__foot">Agam Interiors Pvt Ltd · Chennai · <a href="../index.html">Back to website</a></p>
+</section>
+
+<!-- ======================================================================
+     GATE — Firebase not connected
+     ====================================================================== -->
+<section class="gate" id="gate-setup" hidden>
+  <div class="gate__card gate__card--wide">
+    <div class="gate__brand">
+      <img src="../assets/img/logo.jpg" alt="" width="44" height="44">
+      <div><strong>Agam</strong><span>Office workspace</span></div>
+    </div>
+    <h1>Connect your Firebase project.</h1>
+    <p class="gate__lead">
+      The admin is built and ready. It needs a free Firebase project for secure
+      Google sign-in, live data and file storage.
+    </p>
+    <ol class="steps">
+      <li><span>01</span><div><b>Create the project</b><p>Firebase console → Add project. Enable <em>Authentication → Google</em>, <em>Firestore</em> and <em>Storage</em>.</p></div></li>
+      <li><span>02</span><div><b>Paste the web config</b><p>Project settings → Your apps → Web. Copy the config into <code>assets/js/firebase-config.js</code> and set <code>enabled: true</code>.</p></div></li>
+      <li><span>03</span><div><b>Publish the rules</b><p>Deploy <code>firestore.rules</code> and <code>storage.rules</code> from the site folder (or paste them in the console).</p></div></li>
+      <li><span>04</span><div><b>Add your domain</b><p>Authentication → Settings → Authorized domains: add your Cloudflare Pages domain and <code>agaminterio.com</code>.</p></div></li>
+    </ol>
+    <p class="gate__fine">
+      Full walkthrough: <code>admin/SETUP.md</code> in the site folder. On localhost the
+      admin opens in demo mode automatically so you can try it first.
+    </p>
+    <div class="gate__actions">
+      <a class="btn btn--ghost" href="../index.html">Back to website</a>
+      <a class="btn" href="SETUP.md">Read setup guide</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     GATE — pending approval
+     ====================================================================== -->
+<section class="gate" id="gate-pending" hidden>
+  <div class="gate__card gate__card--narrow">
+    <div class="gate__badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    </div>
+    <p class="gate__eyebrow">Waiting for approval</p>
+    <h1>You're almost in.</h1>
+    <p class="gate__lead">
+      Your request has been sent to the admin. Once your office account is approved,
+      this page will open automatically — no need to sign in again.
+    </p>
+    <dl class="gate__meta">
+      <div><dt>Signed in as</dt><dd id="pending-email">—</dd></div>
+      <div><dt>Status</dt><dd><span class="pill pill--warn">Pending</span></dd></div>
+    </dl>
+    <div class="gate__actions">
+      <button class="btn btn--ghost" id="pending-signout" type="button">Use another account</button>
+      <a class="btn btn--quiet" href="../index.html">Back to website</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     GATE — blocked
+     ====================================================================== -->
+<section class="gate" id="gate-blocked" hidden>
+  <div class="gate__card gate__card--narrow">
+    <div class="gate__badge gate__badge--stop" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg>
+    </div>
+    <p class="gate__eyebrow">Access paused</p>
+    <h1>This account is not active.</h1>
+    <p class="gate__lead">
+      An admin has paused access for <strong id="blocked-email">this account</strong>.
+      Ask the office admin to restore it, then reload this page.
+    </p>
+    <div class="gate__actions">
+      <button class="btn btn--ghost" id="blocked-signout" type="button">Sign out</button>
+      <a class="btn btn--quiet" href="../index.html">Back to website</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     APP
+     ====================================================================== -->
+<div class="app" id="app" hidden>
+
+  <aside class="rail" id="rail">
+    <a class="rail__brand" href="index.html" aria-label="Agam Studio home">
+      <img src="../assets/img/logo.jpg" alt="" width="38" height="38">
+      <span><b>Agam</b><small>Studio</small></span>
+    </a>
+
+    <nav class="rail__nav" aria-label="Admin sections">
+      <button type="button" class="navitem" data-view="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        <span>Overview</span>
+      </button>
+      <button type="button" class="navitem" data-view="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg>
+        <span>Projects</span>
+        <em class="navitem__count" id="nav-projects" hidden>0</em>
+      </button>
+      <button type="button" class="navitem" data-view="files">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>Files</span>
+        <em class="navitem__count" id="nav-files" hidden>0</em>
+      </button>
+      <button type="button" class="navitem" data-view="site">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.6-3.8-9S9.5 5.5 12 3z"/></svg>
+        <span>Website</span>
+      </button>
+      <button type="button" class="navitem" data-view="team">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.8 20c.5-3.4 3.1-5.3 6.2-5.3s5.7 1.9 6.2 5.3"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6.2M17.6 14.8c2.2.5 3.6 2.2 3.9 4.6"/></svg>
+        <span>Team</span>
+        <em class="navitem__count navitem__count--warn" id="nav-pending" hidden>0</em>
+      </button>
+    </nav>
+
+    <div class="rail__foot">
+      <a class="rail__link" href="../index.html" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7M21 3l-9 9"/><path d="M10 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-5"/></svg>
+        View public site
+      </a>
+      <button type="button" class="rail__link" id="signout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg>
+        Sign out
+      </button>
+      <div class="rail__user">
+        <img id="rail-avatar" src="../assets/img/logo.jpg" alt="" width="34" height="34">
+        <div><strong id="rail-name">—</strong><span id="rail-role">—</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="shell">
+    <header class="topbar">
+      <button class="topbar__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="topbar__title">
+        <h1 id="view-title">Overview</h1>
+        <p id="view-sub">Everything happening across the studio.</p>
+      </div>
+      <div class="topbar__actions" id="topbar-actions"></div>
+      <button class="topbar__install" id="install-app" type="button" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M7 9l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg>
+        Install app
+      </button>
+    </header>
+
+    <div class="demo-banner" id="demo-banner" hidden>
+      <strong>Demo mode</strong>
+      <span>Changes are saved in this browser only. Connect Firebase to go live.</span>
+      <button type="button" id="demo-reset">Reset demo data</button>
+    </div>
+
+    <main class="views" id="views">
+
+      <!-- ============ OVERVIEW ============ -->
+      <section class="view" data-view="overview" hidden>
+        <div class="stats" id="overview-stats"></div>
+
+        <div class="grid2">
+          <div class="panel">
+            <div class="panel__head">
+              <div><h2>Project cycle</h2><p>Where every live project sits right now.</p></div>
+              <button class="btn btn--sm btn--ghost" type="button" data-goto="projects">Open projects</button>
+            </div>
+            <div class="pipeline" id="overview-pipeline"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__head">
+              <div><h2>Recent activity</h2><p>Latest notes from the project cycle.</p></div>
+            </div>
+            <ul class="feed" id="overview-feed"></ul>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="panel" id="overview-approvals"></div>
+          <div class="panel">
+            <div class="panel__head">
+              <div><h2>Quick actions</h2><p>Two things done most often.</p></div>
+            </div>
+            <div class="quick">
+              <button type="button" class="quick__card" data-new-project>
+                <span class="quick__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                <b>Add a project</b>
+                <small>New fit-out, home or furniture job</small>
+              </button>
+              <button type="button" class="quick__card" data-goto="files" data-focus-upload>
+                <span class="quick__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg></span>
+                <b>Upload a file</b>
+                <small>Drawings, quotes, site photos</small>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PROJECTS ============ -->
+      <section class="view" data-view="projects" hidden>
+        <div class="toolbar">
+          <div class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="project-search" placeholder="Search project, client or location" autocomplete="off">
+          </div>
+          <select id="project-stage-filter" aria-label="Filter by stage">
+            <option value="all">All stages</option>
+            <option value="enquiry">Enquiry</option>
+            <option value="survey">Survey</option>
+            <option value="design">Design</option>
+            <option value="approval">Approval</option>
+            <option value="execution">Execution</option>
+            <option value="handover">Handover</option>
+            <option value="closed">Closed</option>
+          </select>
+          <button class="btn btn--sm" type="button" data-new-project id="project-new">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            New project
+          </button>
+        </div>
+
+        <div class="projects-layout">
+          <div class="panel panel--list">
+            <div class="plist" id="project-list"></div>
+          </div>
+          <div class="panel panel--detail" id="project-detail">
+            <div class="empty">
+              <span class="empty__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg></span>
+              <h3>Select a project</h3>
+              <p>Choose a project to see its cycle, notes and files.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FILES ============ -->
+      <section class="view" data-view="files" hidden>
+        <div class="grid2 grid2--files">
+          <div class="panel" id="upload-panel">
+            <div class="panel__head">
+              <div><h2>Add a file</h2><p>Drawings, quotations, site photos and handover records.</p></div>
+            </div>
+            <form class="upload" id="upload-form">
+              <label class="dropzone" id="dropzone" for="file-input">
+                <input type="file" id="file-input" multiple>
+                <span class="dropzone__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg></span>
+                <b>Drop files here or click to browse</b>
+                <small>Up to 25 MB per file. Stored privately for approved staff.</small>
+              </label>
+              <div class="field-row">
+                <label class="field">
+                  <span>Link to project (optional)</span>
+                  <select id="upload-project"><option value="">No project</option></select>
+                </label>
+                <label class="field">
+                  <span>Note (optional)</span>
+                  <input type="text" id="upload-note" maxlength="120" placeholder="e.g. Revision B, client approved">
+                </label>
+              </div>
+              <div class="upload__list" id="upload-queue" hidden></div>
+              <div class="upload__actions">
+                <button class="btn btn--sm" type="submit" id="upload-submit" disabled>Upload files</button>
+                <p class="hint" id="upload-hint">No files selected.</p>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel">
+            <div class="panel__head">
+              <div><h2>Shared library</h2><p>Everyone approved can open these files.</p></div>
+              <span class="pill" id="file-count">0 files</span>
+            </div>
+            <div class="mini-toolbar">
+              <div class="search search--sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <input type="search" id="file-search" placeholder="Search files" autocomplete="off">
+              </div>
+              <select id="file-project-filter" aria-label="Filter files by project">
+                <option value="all">All projects</option>
+                <option value="">Unlinked</option>
+              </select>
+            </div>
+            <div class="files" id="file-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WEBSITE ============ -->
+      <section class="view" data-view="site" hidden>
+        <form id="site-form" autocomplete="off">
+          <div class="grid2">
+            <div class="panel">
+              <div class="panel__head">
+                <div><h2>Contact &amp; location</h2><p>These details update on every page of the public website.</p></div>
+                <span class="pill pill--live"><i></i>Live</span>
+              </div>
+
+              <div class="field-row">
+                <label class="field">
+                  <span>Phone number</span>
+                  <input type="text" name="phone" id="set-phone" placeholder="+91 99401 16073">
+                </label>
+                <label class="field">
+                  <span>WhatsApp number</span>
+                  <input type="text" name="whatsapp" id="set-whatsapp" placeholder="919940116073">
+                  <small>Digits only, with country code. Used for the enquiry fallback.</small>
+                </label>
+              </div>
+
+              <label class="field">
+                <span>Email address</span>
+                <input type="email" name="email" id="set-email" placeholder="agaminterio@gmail.com">
+              </label>
+
+              <div class="field-row">
+                <label class="field">
+                  <span>Address line 1</span>
+                  <input type="text" name="line1" id="set-line1">
+                </label>
+                <label class="field">
+                  <span>Address line 2</span>
+                  <input type="text" name="line2" id="set-line2">
+                </label>
+              </div>
+
+              <label class="field">
+                <span>Google Maps search text</span>
+                <input type="text" name="mapQuery" id="set-map-query">
+                <small>Used for the “Open in Google Maps” links.</small>
+              </label>
+
+              <div class="field-row field-row--3">
+                <label class="field">
+                  <span>Latitude</span>
+                  <input type="text" name="mapLat" id="set-map-lat" inputmode="decimal" placeholder="13.0099013">
+                </label>
+                <label class="field">
+                  <span>Longitude</span>
+                  <input type="text" name="mapLng" id="set-map-lng" inputmode="decimal" placeholder="80.198755">
+                </label>
+                <label class="field">
+                  <span>Map zoom</span>
+                  <input type="number" name="mapZoom" id="set-map-zoom" min="10" max="20" step="1" placeholder="17">
+                </label>
+              </div>
+
+              <div class="map-preview">
+                <iframe id="map-preview" title="Office location preview" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="about:blank"></iframe>
+                <div class="map-preview__foot">
+                  <span id="map-hint">Paste coordinates from Google Maps for an exact pin.</span>
+                  <a id="map-open" href="https://www.google.com/maps" target="_blank" rel="noopener">Test on Google Maps →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head">
+                <div><h2>Hours &amp; social</h2><p>Shown in the footer and on the contact page.</p></div>
+              </div>
+
+              <div class="field">
+                <span>Opening hours</span>
+                <div class="hours" id="hours-rows"></div>
+                <button class="btn btn--xs btn--ghost" type="button" id="hours-add">+ Add a row</button>
+              </div>
+
+              <div class="field-row">
+                <label class="field">
+                  <span>Instagram URL</span>
+                  <input type="url" name="instagram" id="set-instagram" placeholder="https://instagram.com/…">
+                </label>
+                <label class="field">
+                  <span>Facebook URL</span>
+                  <input type="url" name="facebook" id="set-facebook" placeholder="https://facebook.com/…">
+                </label>
+              </div>
+              <div class="field-row">
+                <label class="field">
+                  <span>LinkedIn URL</span>
+                  <input type="url" name="linkedin" id="set-linkedin" placeholder="https://linkedin.com/company/…">
+                </label>
+                <label class="field">
+                  <span>YouTube URL</span>
+                  <input type="url" name="youtube" id="set-youtube" placeholder="https://youtube.com/@…">
+                </label>
+              </div>
+
+              <div class="notice">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+                <p>Saving publishes the change immediately. Open the public site in a new tab to check it.</p>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn--sm" type="submit" id="site-save">Save website details</button>
+                <button class="btn btn--sm btn--ghost" type="button" id="site-revert">Discard changes</button>
+                <span class="hint" id="site-state"></span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- ============ TEAM ============ -->
+      <section class="view" data-view="team" hidden>
+        <div class="panel" id="pending-panel">
+          <div class="panel__head">
+            <div><h2>Approval requests</h2><p>People who signed in with Google and are waiting.</p></div>
+            <span class="pill" id="pending-count">0 waiting</span>
+          </div>
+          <div id="pending-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__head">
+            <div><h2>Office team</h2><p>Who can get in, and how much they can change.</p></div>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr><th>Person</th><th>Role</th><th>Status</th><th>Approved by</th><th class="ta-right">Actions</th></tr>
+              </thead>
+              <tbody id="team-list"></tbody>
+            </table>
+          </div>
+          <div class="roles">
+            <div><b>Admin</b><span>Everything: website content, team approvals, deletes.</span></div>
+            <div><b>Office staff</b><span>Projects, cycle notes, uploads. No team or website changes.</span></div>
+            <div><b>Viewer</b><span>Read-only access to projects and shared files.</span></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footbar">
+      <span>Agam Studio</span>
+      <span id="foot-mode">—</span>
+      <a href="../privacy.html" target="_blank" rel="noopener">Privacy</a>
+    </footer>
+  </div>
+</div>
+
+<!-- ======================================================================
+     MODAL
+     ====================================================================== -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__scrim" data-modal-close></div>
+  <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal__x" type="button" data-modal-close aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="modal__body" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>

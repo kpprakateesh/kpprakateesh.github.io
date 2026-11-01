@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Concept study: material board with terrazzo, sand and brass samples">
+  <defs>
+    <linearGradient id="p3brass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e0bb84"/>
+      <stop offset="0.5" stop-color="#c79a5b"/>
+      <stop offset="1" stop-color="#9d7338"/>
+    </linearGradient>
+    <linearGradient id="p3green" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#17703f"/>
+      <stop offset="1" stop-color="#0b3d20"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="#f6f0e4"/>
+
+  <!-- header rule -->
+  <path d="M80 128h640" stroke="#0f4d29" stroke-opacity="0.25" stroke-width="2"/>
+  <circle cx="80" cy="128" r="7" fill="#c79a5b"/>
+  <circle cx="720" cy="128" r="7" fill="#c79a5b"/>
+
+  <!-- panel 1: terrazzo green -->
+  <g>
+    <rect x="80" y="168" width="304" height="304" rx="10" fill="url(#p3green)"/>
+    <g fill="#a6e0bb">
+      <circle cx="130" cy="220" r="7"/><circle cx="196" cy="252" r="5"/><circle cx="268" cy="206" r="9"/>
+      <circle cx="326" cy="286" r="6"/><circle cx="238" cy="330" r="8"/><circle cx="150" cy="376" r="5"/>
+      <circle cx="300" cy="392" r="7"/><circle cx="344" cy="352" r="4"/>
+    </g>
+    <g fill="#e7dcc7">
+      <circle cx="164" cy="292" r="8"/><circle cx="286" cy="256" r="5"/><circle cx="206" cy="414" r="7"/>
+      <circle cx="356" cy="228" r="5"/><circle cx="112" cy="332" r="4"/><circle cx="262" cy="440" r="6"/>
+    </g>
+    <g fill="#c79a5b">
+      <circle cx="230" cy="196" r="6"/><circle cx="128" cy="450" r="5"/><circle cx="330" cy="322" r="7"/>
+      <circle cx="180" cy="354" r="4"/><circle cx="300" cy="182" r="4"/>
+    </g>
+  </g>
+
+  <!-- panel 2: sand -->
+  <rect x="416" y="168" width="304" height="304" rx="10" fill="#e7dcc7"/>
+  <g stroke="#b99a6c" stroke-width="1.5" stroke-opacity="0.55">
+    <path d="M452 200h232M452 232h232M452 264h232M452 296h232M452 328h232M452 360h232M452 392h232M452 424h232"/>
+  </g>
+  <circle cx="568" cy="320" r="66" fill="none" stroke="#0f4d29" stroke-opacity="0.25" stroke-width="2"/>
+
+  <!-- panel 3: brass -->
+  <rect x="80" y="504" width="304" height="304" rx="10" fill="url(#p3brass)"/>
+  <path d="M80 504l304 304M384 504L80 808" stroke="#86632b" stroke-opacity="0.25" stroke-width="1.5"/>
+
+  <!-- panel 4: mint + joinery section -->
+  <rect x="416" y="504" width="304" height="304" rx="10" fill="#fbf9f3" stroke="#0f4d29" stroke-opacity="0.2" stroke-width="2"/>
+  <g stroke="#0f4d29" stroke-width="3" fill="none">
+    <rect x="444" y="540" width="84" height="232"/>
+    <path d="M444 588h84M444 668h84M444 724h84"/>
+    <rect x="566" y="540" width="122" height="108"/>
+    <path d="M566 594h122"/>
+    <path d="M566 680v92h122v-92"/>
+  </g>
+  <g fill="#a6e0bb">
+    <rect x="456" y="552" width="60" height="24" rx="4"/>
+    <rect x="456" y="600" width="60" height="56" rx="4"/>
+  </g>
+  <circle cx="682" cy="594" r="10" fill="#c79a5b"/>
+
+  <!-- caption rules -->
+  <g stroke="#0f4d29" stroke-opacity="0.3" stroke-width="3" stroke-linecap="round">
+    <path d="M80 872h180"/>
+    <path d="M80 900h120"/>
+    <path d="M80 928h150"/>
+  </g>
+  <circle cx="690" cy="900" r="26" fill="none" stroke="#c79a5b" stroke-width="2.5"/>
+  <path d="M676 900h28M690 886v28" stroke="#c79a5b" stroke-width="2.5"/>
+</svg>

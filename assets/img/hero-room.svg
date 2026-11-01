@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" width="900" height="1100" role="img" aria-label="Illustration of an arched living room with a deep green sofa, brass lamp and plants">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#f8f4ec"/>
+      <stop offset="1" stop-color="#e9ddc9"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7ead2"/>
+      <stop offset="0.62" stop-color="#eccfa4"/>
+      <stop offset="1" stop-color="#d9b180"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6dcb2"/>
+      <stop offset="1" stop-color="#c79a5b"/>
+    </linearGradient>
+    <linearGradient id="sofa" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#17703f"/>
+      <stop offset="1" stop-color="#0f4d29"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e6d7c0"/>
+      <stop offset="1" stop-color="#d9c6aa"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f6dcb2" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#f6dcb2" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="archClip">
+      <path d="M150 900V470a300 300 0 0 1 600 0v430z"/>
+    </clipPath>
+  </defs>
+
+  <!-- wall + floor -->
+  <rect width="900" height="1100" fill="url(#wall)"/>
+  <path d="M0 905h900v195H0z" fill="url(#floor)"/>
+  <path d="M0 905h900" stroke="#0f4d29" stroke-opacity="0.18" stroke-width="2"/>
+
+  <!-- arch niche -->
+  <path d="M150 905V470a300 300 0 0 1 600 0v435z" fill="#fbf9f3"/>
+  <g clip-path="url(#archClip)">
+    <rect x="150" y="170" width="600" height="735" fill="url(#sky)" opacity="0.55"/>
+    <circle cx="450" cy="560" r="150" fill="url(#sun)" opacity="0.9"/>
+    <circle cx="450" cy="560" r="240" fill="url(#glow)"/>
+    <!-- window mullions -->
+    <g stroke="#0f4d29" stroke-opacity="0.35" stroke-width="3">
+      <path d="M450 170v735"/>
+      <path d="M150 470h600"/>
+      <path d="M235 470h430"/>
+    </g>
+  </g>
+  <path d="M150 905V470a300 300 0 0 1 600 0v435" fill="none" stroke="#0f4d29" stroke-width="6"/>
+  <path d="M210 905V485a240 240 0 0 1 480 0v420" fill="none" stroke="#0f4d29" stroke-opacity="0.22" stroke-width="2.5"/>
+
+  <!-- pendant light -->
+  <g stroke="#0f4d29" stroke-width="3" fill="none">
+    <path d="M690 170v132"/>
+    <path d="M660 360c0-30 13-58 30-58s30 28 30 58z" fill="#a6e0bb" stroke="#0f4d29"/>
+    <circle cx="690" cy="372" r="7" fill="#c79a5b" stroke="none"/>
+  </g>
+
+  <!-- rug -->
+  <rect x="150" y="905" width="600" height="118" rx="58" fill="#e7dcc7"/>
+  <rect x="176" y="921" width="548" height="86" rx="43" fill="none" stroke="#c79a5b" stroke-opacity="0.45" stroke-width="2.5"/>
+
+  <!-- sofa -->
+  <g>
+    <rect x="250" y="672" width="400" height="118" rx="38" fill="url(#sofa)"/>
+    <rect x="232" y="762" width="436" height="98" rx="30" fill="#0f4d29"/>
+    <rect x="266" y="690" width="164" height="86" rx="26" fill="#a6e0bb"/>
+    <rect x="470" y="690" width="164" height="86" rx="26" fill="#e7dcc7"/>
+    <path d="M266 690h164M470 690h164" stroke="#0f4d29" stroke-opacity="0.18" stroke-width="2"/>
+    <rect x="232" y="838" width="436" height="26" rx="13" fill="#0a3a1f"/>
+    <path d="M266 864v26M634 864v26" stroke="#0f4d29" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <!-- coffee table -->
+  <g>
+    <rect x="352" y="944" width="196" height="12" rx="6" fill="#c79a5b"/>
+    <path d="M374 956v44M526 956v44" stroke="#86632b" stroke-width="6" stroke-linecap="round"/>
+    <rect x="410" y="918" width="18" height="26" rx="4" fill="#0f4d29" opacity="0.7"/>
+    <circle cx="470" cy="926" r="14" fill="#a6e0bb" stroke="#0f4d29" stroke-width="2"/>
+  </g>
+
+  <!-- plant -->
+  <g>
+    <path d="M722 1090v-96" stroke="#0f4d29" stroke-width="4"/>
+    <path d="M722 1030c-36-6-56-32-58-70 30 2 54 22 58 70z" fill="#17703f"/>
+    <path d="M722 1010c34-10 52-36 50-74-30 6-50 28-50 74z" fill="#0f4d29"/>
+    <path d="M722 972c-26-16-34-42-26-76 26 12 38 36 26 76z" fill="#a6e0bb"/>
+    <path d="M690 1000h64l-9 90h-46z" fill="#e7dcc7" stroke="#0f4d29" stroke-width="3"/>
+  </g>
+
+  <!-- floor lamp -->
+  <g>
+    <path d="M140 905V700" stroke="#86632b" stroke-width="5"/>
+    <path d="M112 700h56l-14-52h-28z" fill="#c79a5b"/>
+    <path d="M112 700h56" stroke="#0f4d29" stroke-opacity="0.25" stroke-width="3"/>
+    <ellipse cx="140" cy="907" rx="26" ry="7" fill="#86632b" opacity="0.5"/>
+    <circle cx="140" cy="716" r="34" fill="url(#glow)"/>
+  </g>
+</svg>

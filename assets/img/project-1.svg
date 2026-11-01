@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Concept study: arched living room in green, sand and brass">
+  <defs>
+    <linearGradient id="p1wall" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#f2ebdd"/>
+      <stop offset="1" stop-color="#e2d2b8"/>
+    </linearGradient>
+    <linearGradient id="p1sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4dcb4"/>
+      <stop offset="1" stop-color="#c79a5b"/>
+    </linearGradient>
+    <linearGradient id="p1sofa" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#17703f"/>
+      <stop offset="1" stop-color="#0f4d29"/>
+    </linearGradient>
+    <clipPath id="p1clip"><path d="M150 880V430a250 250 0 0 1 500 0v450z"/></clipPath>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#p1wall)"/>
+  <path d="M0 880h800v120H0z" fill="#dcc9ab"/>
+  <path d="M0 880h800" stroke="#0f4d29" stroke-opacity="0.2" stroke-width="2"/>
+
+  <path d="M150 880V430a250 250 0 0 1 500 0v450z" fill="#fbf9f3"/>
+  <g clip-path="url(#p1clip)">
+    <rect x="150" y="180" width="500" height="700" fill="#f6edda"/>
+    <circle cx="400" cy="470" r="118" fill="url(#p1sun)" opacity="0.92"/>
+    <g stroke="#0f4d29" stroke-opacity="0.3" stroke-width="2.5">
+      <path d="M400 180v700"/>
+      <path d="M150 430h500"/>
+    </g>
+  </g>
+  <path d="M150 880V430a250 250 0 0 1 500 0v450" fill="none" stroke="#0f4d29" stroke-width="7"/>
+  <path d="M205 880V448a195 195 0 0 1 390 0v432" fill="none" stroke="#0f4d29" stroke-opacity="0.2" stroke-width="2"/>
+
+  <rect x="160" y="880" width="480" height="96" rx="48" fill="#e7dcc7"/>
+  <rect x="184" y="896" width="432" height="64" rx="32" fill="none" stroke="#c79a5b" stroke-opacity="0.5" stroke-width="2"/>
+
+  <rect x="235" y="640" width="330" height="104" rx="34" fill="url(#p1sofa)"/>
+  <rect x="220" y="720" width="360" height="88" rx="26" fill="#0f4d29"/>
+  <rect x="248" y="656" width="136" height="74" rx="22" fill="#a6e0bb"/>
+  <rect x="416" y="656" width="136" height="74" rx="22" fill="#e7dcc7"/>
+  <rect x="220" y="786" width="360" height="22" rx="11" fill="#0a3a1f"/>
+  <path d="M250 808v24M550 808v24" stroke="#0f4d29" stroke-width="6" stroke-linecap="round"/>
+
+  <rect x="318" y="884" width="164" height="10" rx="5" fill="#c79a5b"/>
+  <path d="M338 894v34M462 894v34" stroke="#86632b" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="400" cy="872" r="12" fill="#a6e0bb" stroke="#0f4d29" stroke-width="2"/>
+
+  <g>
+    <path d="M676 880V706" stroke="#86632b" stroke-width="4"/>
+    <path d="M650 706h52l-13-46h-26z" fill="#c79a5b"/>
+    <circle cx="676" cy="720" r="28" fill="#f4dcb4" opacity="0.55"/>
+  </g>
+
+  <g>
+    <path d="M118 880V740" stroke="#0f4d29" stroke-width="3.5"/>
+    <path d="M118 800c-26-6-38-24-38-52 22 4 36 20 38 52z" fill="#17703f"/>
+    <path d="M118 786c24-8 34-26 32-54-22 6-34 22-32 54z" fill="#a6e0bb"/>
+    <path d="M96 776h44l-6 74h-32z" fill="#e7dcc7" stroke="#0f4d29" stroke-width="2.5"/>
+  </g>
+</svg>

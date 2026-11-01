@@ -1,0 +1,117 @@
+rules_version = '2';
+
+/* ==========================================================================
+   AGAM — Firestore security rules
+   --------------------------------------------------------------------------
+   Roles
+     admin   full control: site content, projects, files, team approvals
+     editor  office staff: projects, project updates, uploads; no team/settings
+     viewer  read-only office staff
+     pending signed in with Google but not yet approved
+     blocked removed / suspended
+
+   Bootstrap
+     The Google account in ADMIN_EMAIL is always treated as admin, even before
+     a users document exists. Keep it in sync with firebase-config.js.
+   ========================================================================== */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function ADMIN_EMAIL() {
+      return 'agaminterio@gmail.com';
+    }
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isBootstrap() {
+      return signedIn() && request.auth.token.email == ADMIN_EMAIL();
+    }
+
+    function userPath(uid) {
+      return /databases/$(database)/documents/users/$(uid);
+    }
+
+    function profile() {
+      return get(userPath(request.auth.uid)).data;
+    }
+
+    function hasProfile() {
+      return signedIn() && exists(userPath(request.auth.uid));
+    }
+
+    function isApproved() {
+      return hasProfile() && profile().status == 'approved';
+    }
+
+    function isAdmin() {
+      return isBootstrap() || (isApproved() && profile().role == 'admin');
+    }
+
+    function isStaff() {
+      return isBootstrap() || (isApproved() && profile().role in ['admin', 'editor']);
+    }
+
+    /* ---------------- Users / office team ---------------- */
+    match /users/{uid} {
+      // You can always read your own profile. Admins and staff can read the
+      // team list (staff need names on project updates, not full control).
+      allow read: if signedIn() && (uid == request.auth.uid || isStaff());
+
+      // A new Google sign-in may create its own pending profile. The
+      // bootstrap admin may create its own approved admin profile.
+      allow create: if signedIn()
+        && uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && (
+          (request.resource.data.status == 'pending'
+            && request.resource.data.role == 'viewer')
+          || (isBootstrap()
+            && request.resource.data.role == 'admin'
+            && request.resource.data.status == 'approved')
+        );
+
+      // Only admins approve, promote, suspend or rename roles.
+      allow update: if isAdmin();
+      allow delete: if isAdmin() && uid != request.auth.uid;
+    }
+
+    /* ---------------- Public website content ---------------- */
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    /* ---------------- Projects / project cycle ---------------- */
+    match /projects/{projectId} {
+      // Published projects are public (the website reads them). Unpublished
+      // ones are visible to approved staff only.
+      allow read: if isApproved() || resource.data.get('published', false) == true;
+      allow create, update: if isStaff();
+      allow delete: if isAdmin();
+
+      // Activity log / project cycle updates
+      match /updates/{updateId} {
+        allow read: if isApproved();
+        allow create: if isStaff();
+        allow update, delete: if isAdmin();
+      }
+    }
+
+    /* ---------------- Private office files ---------------- */
+    match /files/{fileId} {
+      allow read: if isApproved();
+      allow create: if isStaff();
+      allow update: if isStaff();
+      allow delete: if isAdmin()
+        || (isStaff() && resource.data.uploadedBy == request.auth.uid);
+    }
+
+    /* Everything else is closed. */
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

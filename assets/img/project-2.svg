@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Concept study: louvred screen with a pale green alcove seat">
+  <defs>
+    <linearGradient id="p2bg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#f7f0e2"/>
+      <stop offset="1" stop-color="#e6d5ba"/>
+    </linearGradient>
+    <linearGradient id="p2light" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="p2seat" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#c6e8d0"/>
+      <stop offset="1" stop-color="#a6e0bb"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#p2bg)"/>
+
+  <!-- louvred screen -->
+  <g>
+    <rect x="90" y="120" width="620" height="640" fill="#f9f5ec"/>
+    <g fill="#0f4d29">
+      <rect x="120" y="150" width="16" height="580" opacity="0.85"/>
+      <rect x="168" y="150" width="16" height="580" opacity="0.78"/>
+      <rect x="216" y="150" width="16" height="580" opacity="0.7"/>
+      <rect x="264" y="150" width="16" height="580" opacity="0.62"/>
+      <rect x="312" y="150" width="16" height="580" opacity="0.54"/>
+      <rect x="360" y="150" width="16" height="580" opacity="0.46"/>
+      <rect x="408" y="150" width="16" height="580" opacity="0.38"/>
+      <rect x="456" y="150" width="16" height="580" opacity="0.32"/>
+      <rect x="504" y="150" width="16" height="580" opacity="0.27"/>
+      <rect x="552" y="150" width="16" height="580" opacity="0.23"/>
+      <rect x="600" y="150" width="16" height="580" opacity="0.2"/>
+      <rect x="648" y="150" width="16" height="580" opacity="0.17"/>
+    </g>
+    <path d="M90 120h620v640H90z" fill="none" stroke="#0f4d29" stroke-width="6"/>
+    <path d="M90 120h620l-260 640H90z" fill="url(#p2light)"/>
+  </g>
+
+  <!-- alcove seat -->
+  <g>
+    <rect x="118" y="690" width="400" height="120" rx="26" fill="url(#p2seat)"/>
+    <rect x="140" y="712" width="164" height="76" rx="20" fill="#e7dcc7"/>
+    <rect x="320" y="712" width="176" height="76" rx="20" fill="#fbf9f3" opacity="0.7"/>
+    <path d="M118 786h400" stroke="#0f4d29" stroke-opacity="0.2" stroke-width="2"/>
+    <path d="M150 810v40M486 810v40" stroke="#0f4d29" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- floor -->
+  <path d="M0 900h800v100H0z" fill="#dcc9ab"/>
+  <path d="M0 900h800" stroke="#0f4d29" stroke-opacity="0.18" stroke-width="2"/>
+
+  <!-- side table -->
+  <g>
+    <ellipse cx="612" cy="742" rx="86" ry="20" fill="#c79a5b"/>
+    <path d="M560 756l-10 100M664 756l10 100" stroke="#86632b" stroke-width="6" stroke-linecap="round"/>
+    <path d="M612 742v-58" stroke="#0f4d29" stroke-width="3.5"/>
+    <path d="M612 700c-20-6-30-22-30-46 20 4 30 20 30 46z" fill="#17703f"/>
+    <path d="M612 690c18-8 26-24 24-48-18 6-26 22-24 48z" fill="#a6e0bb"/>
+    <path d="M594 684h36l-5 58h-26z" fill="#fbf9f3" stroke="#0f4d29" stroke-width="2.5"/>
+  </g>
+
+  <!-- hanging pendant -->
+  <g>
+    <path d="M700 120v96" stroke="#0f4d29" stroke-width="3"/>
+    <path d="M672 262c0-26 12-46 28-46s28 20 28 46z" fill="#c79a5b" stroke="#0f4d29" stroke-width="2.5"/>
+    <circle cx="700" cy="274" r="16" fill="#f4dcb4" opacity="0.7"/>
+  </g>
+</svg>

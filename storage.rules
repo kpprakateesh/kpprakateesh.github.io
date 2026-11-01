@@ -1,0 +1,76 @@
+rules_version = '2';
+
+/* ==========================================================================
+   AGAM — Firebase Storage security rules
+   --------------------------------------------------------------------------
+   public/projects/**   project photographs used on the public website
+                        (anyone can view, only staff can upload)
+   staff/**             private office files and drawings
+                        (approved team members only)
+   ========================================================================== */
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function ADMIN_EMAIL() {
+      return 'agaminterio@gmail.com';
+    }
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isBootstrap() {
+      return signedIn() && request.auth.token.email == ADMIN_EMAIL();
+    }
+
+    function profile() {
+      return firestore.get(
+        /databases/(default)/documents/users/$(request.auth.uid)
+      ).data;
+    }
+
+    function hasProfile() {
+      return signedIn() && firestore.exists(
+        /databases/(default)/documents/users/$(request.auth.uid)
+      );
+    }
+
+    function isApproved() {
+      return hasProfile() && profile().status == 'approved';
+    }
+
+    function isStaff() {
+      return isBootstrap() || (isApproved() && profile().role in ['admin', 'editor']);
+    }
+
+    function isAdmin() {
+      return isBootstrap() || (isApproved() && profile().role == 'admin');
+    }
+
+    function imageSizeOk() {
+      return request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    function fileSizeOk() {
+      return request.resource.size < 25 * 1024 * 1024;
+    }
+
+    /* Website project photography — readable by everyone. */
+    match /public/projects/{allPaths=**} {
+      allow read: if true;
+      allow write: if isStaff() && imageSizeOk();
+      allow delete: if isAdmin();
+    }
+
+    /* Private team files — readable by approved office users only. */
+    match /staff/{allPaths=**} {
+      allow read: if isApproved();
+      allow create: if isStaff() && fileSizeOk();
+      allow update: if isStaff() && fileSizeOk();
+      allow delete: if isAdmin()
+        || (isStaff() && resource.metadata.uploadedBy == request.auth.uid);
+    }
+  }
+}
