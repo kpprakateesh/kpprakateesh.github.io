@@ -21,10 +21,14 @@ site/
 ├── contact.html            Enquiry form, map, hours
 ├── privacy.html            Privacy notice
 ├── thanks.html             Form success page (optional)
+├── staff-access.html       Private-vault access guide (Tailscale)
 ├── 404.html                Not-found page
 ├── admin/                  Office admin (Google login) — see admin/SETUP.md
 ├── robots.txt · sitemap.xml · manifest.webmanifest · CNAME · .nojekyll
-├── _headers                Security + cache headers (Cloudflare Pages)
+├── vercel.json             Vercel headers + caching
+├── .vercelignore           Files Vercel should not upload
+├── deploy-vercel.sh        One-command production deploy
+├── _headers                Security headers for other static hosts
 ├── firebase.json           Deploy config for Firestore + Storage rules
 ├── firestore.rules         Security model for users, settings, projects, files
 ├── storage.rules           Public project images, private staff files
@@ -54,7 +58,8 @@ applied to every page automatically:
 | `address`, `hours` | Contact page and footer. |
 | `formEndpoint` | Where enquiries are sent (see §4). |
 | `social` | Instagram / Facebook / LinkedIn / YouTube. Leave `""` to hide an icon. |
-| `staffPortal` | Private staff-vault URL. Leave `""` to hide the discreet footer link. **Never host the vault inside this site.** |
+| `staffPortal` | Footer staff link. Defaults to `staff-access.html`, the public Tailscale guide. Set `""` to hide it. |
+| `staffVaultUrl` | The private `https://….ts.net` vault address. Leave `""` until Tailscale Serve is running. **Never host the vault inside this site.** |
 
 > **E-mail is optional.** Elements marked `data-email-only` stay hidden until
 > `email` is filled in, so the site never shows a blank e-mail row. Add the
@@ -69,13 +74,15 @@ applied to every page automatically:
 
 The office records gateway is **not** part of this static site and must never be
 uploaded with it. It lives in `../vault/`, runs as a small Node server on the
-office machine, and is reached through Tailscale or Cloudflare Access.
+office machine, and is reached **only through Tailscale**. There is no public
+vault URL.
 
-When it is deployed, paste its HTTPS address into `staffPortal` in
-`config.js`. A discreet **“Staff sign-in”** link then appears in the footer on
-every page. Leave it empty and no link is rendered. See
-[`../vault/SETUP.md`](../vault/SETUP.md) for the security model and deployment
-steps.
+The footer's **Staff sign-in** link goes to `staff-access.html`, which explains
+how to install Tailscale and join the company tailnet. It does not publish the
+vault address. Once Tailscale Serve is running, put the printed
+`https://….ts.net` address in `staffVaultUrl` in `config.js`; the guide page then
+shows a direct **Open the private vault** button, still unreachable without
+Tailscale. See [`../vault/SETUP.md`](../vault/SETUP.md).
 
 ## 2. Preview locally
 
@@ -94,6 +101,7 @@ Or simply double-click `index.html` — the site works offline from `file://`.
 
 This rewrites every `https://YOUR-DOMAIN.com` (canonical tags, Open Graph tags,
 `robots.txt`, `sitemap.xml`) and writes the `CNAME` file used by GitHub Pages.
+Vercel does not need `CNAME`; it is excluded by `.vercelignore`.
 Run it once you know the exact domain (with or without `www`).
 
 ## 4. Make the enquiry form deliver to your inbox

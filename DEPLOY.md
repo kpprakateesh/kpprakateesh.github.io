@@ -1,111 +1,123 @@
-# Deploying the Agam website (free hosting + your GoDaddy domain)
+# Deploying the Agam website (Vercel + your GoDaddy domain)
 
-You keep the domain registered at GoDaddy. You only change **DNS records** —
-that is free. Nothing here requires a paid plan or GoDaddy hosting.
+You keep the domain registered at GoDaddy and only change **DNS records** —
+that is free. The public site is a plain static folder (`site/`), so it works on
+Vercel, GitHub Pages or Cloudflare Pages with no build step.
 
-Two free options are documented. Cloudflare Pages is recommended (faster, free
-SSL on the naked domain, no repo required). GitHub Pages is a good backup /
-second copy.
+**The private vault is not deployed with this site.** It stays on the office
+machine and is reached only through **Tailscale** (`../vault/SETUP.md`).
+
+Two hosting paths are documented:
+
+- **Option A — Vercel** (recommended): fast, simple deploys, free SSL, good
+  India edge presence.
+- **Option B — GitHub Pages** (free fallback, already live as an interim URL).
+- Option C (Cloudflare Pages) remains at the end as an alternative.
+
+> **Vercel plan note.** The Hobby plan is for personal, non-commercial projects.
+> A company website should use **Vercel Pro** (currently about US$20/month).
+> If that is not wanted, use GitHub Pages or Cloudflare Pages instead — the
+> site folder is identical.
 
 ---
 
-## Option A — Cloudflare Pages (recommended)
+## Option A — Vercel (recommended)
 
-Free tier: unlimited requests and bandwidth, free SSL/TLS, global CDN, DDoS
-protection. No credit card.
+### A1. Deploy the site
 
-### A1. Create the project
+From the project folder:
 
-1. Sign up at <https://dash.cloudflare.com/sign-up> (free).
-2. Left sidebar → **Workers & Pages** → **Create** → **Pages** → **Upload assets**.
-3. Name it `agam-website`.
-4. Drag the **contents of the `site/` folder** into the uploader (not the folder
-   itself — `index.html` must sit at the top level). This includes `admin/` and
-   the Firebase rule files. Click **Deploy**.
-5. You now have `https://agam-website.pages.dev` — the site is live. Check it.
+```bash
+cd site
+npx vercel login        # once, in your browser
+./deploy-vercel.sh      # production deploy
+```
 
-> **Before the live admin can sign anyone in**, connect Firebase and authorise
-> this Pages domain. Complete **[admin/SETUP.md](admin/SETUP.md)** (Firebase
-> project, Google provider, config keys, rules, authorized domains). You can
-> deploy now and connect Firebase afterwards — the public site works either
-> way, and `/admin/` shows the setup screen until the keys are added.
+`deploy-vercel.sh` runs `npx vercel deploy --prod`. If you prefer the dashboard:
 
-### A2. Point your GoDaddy domain at it
+1. Sign in at <https://vercel.com>.
+2. **Add New → Project** → import the repository that contains `site/`.
+3. Set **Root Directory** to `site`.
+4. Framework preset: **Other**. Build command: **none**. Output directory:
+   leave empty (Vercel serves the folder as-is).
+5. **Deploy**. You get `https://<project>.vercel.app`.
 
-**Best method — move DNS to Cloudflare (still registered at GoDaddy, still free):**
+`site/vercel.json` adds security headers (HSTS, `X-Content-Type-Options`,
+`X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`,
+`Cross-Origin-Opener-Policy`) and caching rules. `site/.vercelignore` keeps
+`CNAME`, `DEPLOY.md` and the GitHub Pages helper files out of the upload.
 
-1. Cloudflare dashboard → **Add a site** → enter `agaminterio.com` → Free plan.
-2. Cloudflare shows two nameservers, e.g. `ada.ns.cloudflare.com` and
-   `bob.ns.cloudflare.com`.
-3. GoDaddy → **My Products → your domain → DNS → Nameservers → Change →
-   “I'll use my own nameservers”** → paste both Cloudflare nameservers → Save.
-4. Wait for Cloudflare to show the zone as **Active** (usually 10 minutes to a few
-   hours; can take up to 24h).
-5. Cloudflare Pages project → **Custom domains** → **Set up a custom domain** →
-   enter `agaminterio.com` → **Activate**. Repeat for `www.agaminterio.com`.
-   Cloudflare creates the DNS records and issues the SSL certificate for you.
+> **Google sign-in / Firebase:** `Cross-Origin-Opener-Policy:
+> same-origin-allow-popups` is required for the `/admin/` Google popup. Do not
+> replace it with a restrictive `Content-Security-Policy` that blocks
+> Google/Firebase. Add the Vercel domains to **Firebase → Authentication →
+> Settings → Authorized domains** before the live admin can sign in — see
+> **[admin/SETUP.md](admin/SETUP.md)**.
 
-**Alternative — keep GoDaddy DNS (no nameserver change):**
+### A2. Point your GoDaddy domain at Vercel
 
-1. Cloudflare Pages → **Custom domains** → add `www.agaminterio.com` only.
-2. GoDaddy → DNS → add a **CNAME** record: name `www`, value
-   `agam-website.pages.dev`, TTL 600.
-3. For the naked domain, GoDaddy → **Domain Settings → Forwarding → Add**:
-   forward `agaminterio.com` → `https://www.agaminterio.com`, permanent (301).
-   (Forwarding is free at GoDaddy; it cannot do “CNAME flattening” for an apex.)
-4. Wait ~30 minutes, then open both `https://agaminterio.com` and
-   `https://www.agaminterio.com`.
+1. Vercel project → **Settings → Domains → Add** → enter `agaminterio.com`.
+2. Vercel shows the exact DNS records to create. Typically:
+   - apex `@` → **A** `76.76.21.21`
+   - `www` → **CNAME** `cname.vercel-dns.com`
+   Use the values Vercel displays for your project — they can change.
+3. GoDaddy → **My Products → your domain → DNS** → delete GoDaddy's default
+   “Parked” A/CNAME records at `@` and `www`, then add the records above
+   (TTL 600).
+4. Back in Vercel, wait for both domains to show **Valid Configuration**. SSL is
+   issued automatically.
+5. Choose one canonical host (for example `https://www.agaminterio.com`) and set
+   the other to **Redirect** in the Vercel Domains panel.
 
-### A3. Turn on the extras (2 minutes)
+No nameserver change is needed, so e-mail and any other GoDaddy DNS records keep
+working.
 
-- **SSL/TLS → Overview** → mode **Full (strict)**.
-- **SSL/TLS → Edge Certificates** → **Always Use HTTPS** on.
-- **Rules → Redirect Rules** → create: if hostname equals `agaminterio.com`,
-  redirect to `https://www.agaminterio.com` (or the reverse — pick one and be
-  consistent with `set-domain.sh`).
-- **Speed → Optimization** → Brotli on.
+### A3. After the first deploy
 
-`_headers` is uploaded with the site and sets
-`Cross-Origin-Opener-Policy: same-origin-allow-popups`, which Google sign-in
-needs for its popup. Do not remove it or replace it with a restrictive
-`Content-Security-Policy` that blocks Google/Firebase. Also add
-`agaminterio.com`, `www.agaminterio.com` and the `*.pages.dev` address under
-**Firebase → Authentication → Settings → Authorized domains**.
+- Run `./set-domain.sh agaminterio.com` once so canonical tags, `sitemap.xml`
+  and Open Graph URLs all agree, then redeploy.
+- Add `agaminterio.com`, `www.agaminterio.com` and the `*.vercel.app` address
+  under **Firebase → Authentication → Settings → Authorized domains**.
+- Check `https://agaminterio.com/staff-access.html` loads and that the footer
+  staff link points to it.
 
-### A4. Keep the staff vault off Pages
+### A4. Keep the staff vault off Vercel
 
 `vault/` is a **separate private server**, not a folder to upload. It contains
 session code, an encryption key, a database and staff records. Never add it to
-the Pages project, the GitHub repo, or any public backup.
+the Vercel project, a public repo or any public backup.
 
-The public site only needs one pointer: paste the vault's HTTPS address into
-`staffPortal` in `assets/js/config.js`, and a discreet “Staff sign-in” footer
-link appears. Full deployment and security guide: `../vault/SETUP.md`.
+Vercel cannot run the vault: its functions are stateless, cannot keep this
+SQLite database and AES key, and cannot join the company tailnet. The vault runs
+on the office machine behind **Tailscale Serve**. The public site only links to
+`staff-access.html`; the real `https://….ts.net` address is stored in
+`staffVaultUrl` in `assets/js/config.js` after Serve is enabled.
+
+Full vault deployment and security guide: [`../vault/SETUP.md`](../vault/SETUP.md).
 
 ---
 
-## Option B — GitHub Pages (free, keeps a copy in your GitHub account)
+## Option B — GitHub Pages (free fallback, currently live)
 
-Your GitHub account `kpprakateesh` is already connected. Free HTTPS, 100 GB/month
-soft bandwidth. Fine for this site.
+The site is already published at **https://kpprakateesh.github.io/** as an
+interim URL. Free HTTPS, 100 GB/month soft bandwidth.
 
 ### B1. Publish
 
-1. Create a **public** repository named `agam-website` at
-   <https://github.com/new> (do not add a README).
-2. Upload the **contents of `site/`** (Add file → Upload files → drag everything,
-   including the `assets` folder). Commit.
+1. Create a **public** repository (the interim copy uses
+   `kpprakateesh/kpprakateesh.github.io`).
+2. Upload the **contents of `site/`** — `index.html` must sit at the top level.
 3. Repository → **Settings → Pages** → Source: **Deploy from a branch** →
-   Branch: `main`, folder: `/ (root)` → **Save**.
-4. After a minute the site is at `https://kpprakateesh.github.io/agam-website/`.
-5. Same page → **Custom domain** → enter `agaminterio.com` → **Save**.
-   (The `CNAME` file in this folder must contain exactly that domain.)
-6. Wait for the DNS check to pass, then tick **Enforce HTTPS**.
+   Branch: `main`, folder `/ (root)` → **Save**.
+4. For a project repo the address is
+   `https://kpprakateesh.github.io/<repo>/`; for the special
+   `kpprakateesh.github.io` repo it is `https://kpprakateesh.github.io/`.
+5. Remove `CNAME` when using the `github.io` address; keep it when using the
+   real domain.
 
 ### B2. GoDaddy DNS records for GitHub Pages
 
-GoDaddy → **DNS** → add these (delete GoDaddy's default “Parked” A/CNAME records
-first):
+GoDaddy → **DNS** → delete the default “Parked” records, then add:
 
 | Type | Name | Value | TTL |
 |---|---|---|---|
@@ -115,19 +127,35 @@ first):
 | A | `@` | `185.199.111.153` | 600 |
 | CNAME | `www` | `kpprakateesh.github.io` | 600 |
 
-Then wait up to 24 hours (usually under an hour). Verify with
-`dig agaminterio.com +short` — you should see the four GitHub IPs.
+Then add the custom domain in **Settings → Pages** and tick **Enforce HTTPS**
+after the DNS check passes.
+
+---
+
+## Option C — Cloudflare Pages (alternative static host)
+
+1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Upload assets**.
+2. Name it `agam-website`, drag the **contents of `site/`**, deploy.
+3. To use the domain, either move DNS to Cloudflare (free; still registered at
+   GoDaddy) or add a `www` CNAME to `agam-website.pages.dev` and forward the apex
+   at GoDaddy.
+4. `_headers` (kept for non-Vercel hosts) sets the same
+   `Cross-Origin-Opener-Policy: same-origin-allow-popups` header Google sign-in
+   needs.
+
+Cloudflare Access + Tunnel remains documented in `../vault/SETUP.md` only as a
+fallback for staff who cannot install Tailscale. **Do not** publish the vault
+this way unless that fallback is genuinely required.
 
 ---
 
 ## Which one should be the “real” one?
 
-Pick **one** as the canonical address and redirect the other, so Google does not
+Pick **one** canonical address and redirect the others so search engines do not
 see duplicate sites:
 
-- Use Cloudflare Pages as the live site (faster in India, free SSL on the apex).
-- Keep GitHub Pages as a staging copy on its `github.io` URL, with a `noindex`
-  header if you want it out of search results.
+- Use **Vercel** for the live site at `https://agaminterio.com` (or `www`).
+- Keep GitHub Pages as a staging copy on its `github.io` URL, ideally `noindex`.
 - Run `./set-domain.sh agaminterio.com` once so canonical tags, the sitemap and
   Open Graph URLs all agree.
 
@@ -136,21 +164,22 @@ see duplicate sites:
 ## After going live (30 minutes, well spent)
 
 1. **Google Search Console** — <https://search.google.com/search-console> → add
-   `agaminterio.com` → verify (Cloudflare/GitHub DNS makes this easy) → submit
+   `agaminterio.com` → verify → submit
    `https://agaminterio.com/sitemap.xml`.
-2. **Google Business Profile** — create/claim it for “Agam Interiors Pvt Ltd, Chennai”. For a local design business this drives far more
-   enquiries than the website alone; make sure the name, phone and address match
-   the site exactly.
+2. **Google Business Profile** — create/claim it for “Agam Interiors Pvt Ltd,
+   Chennai”. Keep the name, phone and address identical to the site.
 3. **Test on a phone** — header menu, form, WhatsApp button, map.
-4. **Test the form** from the live site and confirm the enquiry arrives.
+4. **Test the enquiry form** and confirm the message arrives.
 5. **Share preview** — paste the URL into WhatsApp; check the image and title
-   that appear (comes from `assets/img/og-cover.jpg`).
-6. **Backups** — keep the `site/` folder in a private Git repo or a cloud drive;
-   re-uploading to Cloudflare Pages takes under a minute.
+   (from `assets/img/og-cover.jpg`).
+6. **Backups** — keep `site/` in a private repo or cloud drive. Redeploying to
+   Vercel takes under a minute.
 7. **Office admin** — open `https://agaminterio.com/admin/`, sign in with
-   `agaminterio@gmail.com`, then approve the office Google accounts under
-   **Team**. Test one staff account and one file upload from a phone. Full
-   setup and troubleshooting: [admin/SETUP.md](admin/SETUP.md).
+   `agaminterio@gmail.com`, approve the office Google accounts under **Team**,
+   then test one staff account and one file upload. See
+   [admin/SETUP.md](admin/SETUP.md).
+8. **Private vault** — finish Tailscale (`../vault/SETUP.md` §2), then put the
+   printed `.ts.net` address in `staffVaultUrl` and redeploy.
 
 ---
 
@@ -159,9 +188,11 @@ see duplicate sites:
 | Symptom | Cause | Fix |
 |---|---|---|
 | “Domain is not configured” at GoDaddy | Default parked records still present | Delete the parked A record / CNAME at `@` and `www` |
-| `www` works, apex does not | No apex record / no forwarding | Cloudflare DNS (Option A) or GoDaddy forwarding to `www` |
-| HTTPS warning | Certificate still issuing | Wait 15–60 min; Cloudflare: SSL mode Full (strict) |
-| Site loads but no styling | `assets/` was not uploaded at the same level as `index.html` | Re-upload keeping the folder structure |
+| `www` works, apex does not | Missing apex record | Add the apex A record Vercel/GitHub shows, or forward to `www` |
+| Vercel says “Invalid Configuration” | DNS not propagated or wrong record | Re-check the exact values in Vercel → Domains; wait up to an hour |
+| HTTPS warning | Certificate still issuing | Wait 15–60 min |
+| Site loads but no styling | `assets/` not uploaded beside `index.html` | Redeploy keeping the folder structure |
 | Images/links broken after moving | Domain changed but `set-domain.sh` not run | Run it, then redeploy |
-| Form does nothing | No `formEndpoint` set | It falls back to the visitor's mail app — see README §4 |
-| Changes do not appear | Browser/CDN cache | Hard refresh (Ctrl/Cmd+Shift+R); Cloudflare purges automatically on deploy |
+| Admin Google popup blocked | COOP header or unauthorised domain | Keep `same-origin-allow-popups`; add the domain in Firebase |
+| Form does nothing | No `formEndpoint` set | Falls back to the visitor's mail app — see README §4 |
+| Changes do not appear | Browser/CDN cache | Hard refresh (Ctrl/Cmd+Shift+R); Vercel deploys are immutable per URL |
