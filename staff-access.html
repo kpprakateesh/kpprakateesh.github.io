@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.AGAM_READY)document.documentElement.classList.remove("js");},2500);</script>
+<title>Private staff access — Agam</title>
+<meta name="description" content="How Agam Interiors staff reach the private company vault over Tailscale.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="Agam — home">
+      <img src="assets/img/logo.jpg" alt="Agam logo" width="42" height="42">
+      <span class="brand-name">Agam<span>Interior &amp; Build Consultants</span></span>
+    </a>
+    <div class="header-actions">
+      <a class="header-phone" href="tel:+919940116073" data-contact="phone-link">
+        <span class="header-phone__label">Need access?</span>
+        <span class="header-phone__num" data-contact="phone">+91 99401 16073</span>
+      </a>
+      <a class="btn btn--sm" href="index.html">Back to home</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">Company staff only</p>
+      <h1>Private staff access.</h1>
+      <p class="lead">
+        The Agam vault is not published on the public internet. It opens only on
+        devices signed in to the company Tailscale network — then the normal
+        staff ID, password and six-digit PIN still apply.
+      </p>
+      <div class="hero-actions reveal" style="margin-top:1.6rem">
+        <a class="btn" id="vault-open" href="#" hidden>Open the private vault</a>
+        <a class="btn btn--ghost" href="https://tailscale.com/download" target="_blank" rel="noopener">Install Tailscale</a>
+      </div>
+      <p class="lead" id="vault-hint" style="margin-top:1rem;font-size:0.95rem">
+        Ask the office admin for the private vault address and a Tailscale
+        invitation. It is shared privately and is intentionally absent from this
+        public website.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="cards">
+        <article class="service-card reveal">
+          <span class="service-card__num">01</span>
+          <h3>Join the company network</h3>
+          <p>
+            Install Tailscale on your laptop or phone and sign in with the
+            company account the admin invites you to. Use the same account on
+            every work device.
+          </p>
+        </article>
+        <article class="service-card reveal" data-delay="80">
+          <span class="service-card__num">02</span>
+          <h3>Open the private address</h3>
+          <p>
+            With Tailscale connected, open the vault address your admin gave
+            you. Outside the company network that address does not resolve.
+          </p>
+        </article>
+        <article class="service-card reveal" data-delay="160">
+          <span class="service-card__num">03</span>
+          <h3>Sign in to the vault</h3>
+          <p>
+            Use your staff ID, password and PIN. First time? Choose
+            “Set up your account” and enter the one-time code from your admin.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+      <div class="prose reveal">
+        <h2>Why it works this way</h2>
+        <ul>
+          <li><strong>No public vault URL.</strong> The address is not published or linked from this site, and it is not reachable from the open internet.</li>
+          <li><strong>No port forwarding.</strong> Tailscale creates an encrypted private link between approved devices across normal office and home networks.</li>
+          <li><strong>Device-level gate.</strong> Only devices signed in to the company tailnet can reach the vault, and the admin can remove a lost device immediately.</li>
+          <li><strong>Vault sign-in still applies.</strong> Staff ID + password + six-digit PIN, with optional authenticator (2FA). Admin and staff permissions are unchanged.</li>
+          <li><strong>Records stay in the office.</strong> Encrypted data and uploaded files live on the office machine, not on the public website host.</li>
+        </ul>
+
+        <h2>If you cannot connect</h2>
+        <ul>
+          <li>Check Tailscale shows <em>Connected</em> and you are signed in with your company account.</li>
+          <li>Make sure you are using the private vault address, not the public website address.</li>
+          <li>If the office machine is off, the vault is unavailable — contact the office.</li>
+          <li>Lost phone or laptop? Tell the admin at once so the device can be removed from the tailnet and the vault sessions revoked.</li>
+        </ul>
+
+        <p>
+          Access is managed in person. There is deliberately no public sign-up,
+          no e-mail password reset, and no way to reach the vault from an
+          anonymous browser.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:0;padding-top:0">
+      <span>© <span data-year>2026</span> Agam Interiors Pvt Ltd</span>
+      <span>Crafted in Chennai · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script>
+(function () {
+  var cfg = window.AGAM || {};
+  var link = document.getElementById("vault-open");
+  var hint = document.getElementById("vault-hint");
+  if (cfg.staffVaultUrl && link) {
+    link.href = cfg.staffVaultUrl;
+    link.hidden = false;
+    if (hint) hint.hidden = true;
+  }
+})();
+</script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/site-data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

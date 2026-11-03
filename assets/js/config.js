@@ -13,10 +13,13 @@ window.AGAM = {
   city: "Chennai",
 
   // ---- Staff gateway ------------------------------------------------------
-  // The private vault is hosted separately (see ../vault/SETUP.md). Paste its
-  // HTTPS address here to show a discreet "Staff sign-in" link in the footer.
-  // Leave "" to hide the link entirely. Never put the vault inside this site.
-  staffPortal: "https://james-arm-finish-paid.trycloudflare.com",
+  // The private vault is NOT hosted with this public site. It runs on the
+  // office machine and is reached only through Tailscale (see vault/SETUP.md).
+  // This public link goes to a short access guide; the real vault address is
+  // shared privately and stored in staffVaultUrl below. Leave that empty until
+  // Tailscale Serve is running, then paste the https://….ts.net address.
+  staffPortal: "staff-access.html",
+  staffVaultUrl: "",
 
   // ---- Contact ------------------------------------------------------------
   phone: "+91 99401 16073",
