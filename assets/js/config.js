@@ -16,7 +16,7 @@ window.AGAM = {
   // The private vault is hosted separately (see ../vault/SETUP.md). Paste its
   // HTTPS address here to show a discreet "Staff sign-in" link in the footer.
   // Leave "" to hide the link entirely. Never put the vault inside this site.
-  staffPortal: "https://reviews-ultra-forestry-rich.trycloudflare.com",
+  staffPortal: "https://james-arm-finish-paid.trycloudflare.com",
 
   // ---- Contact ------------------------------------------------------------
   phone: "+91 99401 16073",
